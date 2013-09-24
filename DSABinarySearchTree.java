@@ -114,4 +114,19 @@ public class DSABinarySearchTree<
 				return rightHeight;
 		}
 	}
+	public static void main(String[] args) {
+		DSABinarySearchTree<String, String> t =
+			new DSABinarySearchTree<String, String>();
+		t.insert("delan@azabani.com", "Delan Azabani");
+		t.insert("me@kyerussell.com", "Kye Russell");
+		t.insert("rms@gnu.org", "Richard Stallman");
+		System.out.println(t.find("me@kyerussell.com"));
+		System.out.println(t.find("rms@gnu.org"));
+		System.out.println(t.find("delan@azabani.com"));
+		try {
+			System.out.println(t.find("nobody@example.net"));
+		} catch (NoSuchElementException e) {
+			System.out.println("nobody@example.net not found");
+		}
+	}
 }
