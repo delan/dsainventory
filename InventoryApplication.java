@@ -6,6 +6,7 @@ public class InventoryApplication {
 	public static void main(String[] args) {
 		b = new InventoryApplicationBackend();
 		System.out.println("________________________________________");
+		System.out.println("");
 		System.out.println("   Data Structures and Algorithms 120");
 		System.out.println("    Inventory application assignment");
 		System.out.println("       Delan Azabani (#17065012)");
