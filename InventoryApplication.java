@@ -2,9 +2,9 @@ import java.io.*;
 import java.util.*;
 
 public class InventoryApplication {
-	public static InventoryApplicationBackend B;
+	public static InventoryApplicationBackend backend;
 	public static void main(String[] args) {
-		B = new InventoryApplicationBackend();
+		backend = new InventoryApplicationBackend();
 		System.out.println("________________________________________");
 		System.out.println("");
 		System.out.println("   Data Structures and Algorithms 120");
@@ -14,28 +14,31 @@ public class InventoryApplication {
 		runMainMenu();
 	}
 	public static int readInt() {
-		InputStreamReader r = new InputStreamReader(System.in);
-		StreamTokenizer t = new StreamTokenizer(r);
-		String m = "\nInvalid: not an integer";
+		InputStreamReader reader = new InputStreamReader(System.in);
+		StreamTokenizer token = new StreamTokenizer(reader);
+		String message = "\nInvalid: not an integer";
 		while (true) {
 			printPrompt();
 			try {
-				if (t.nextToken() == t.TT_NUMBER)
-					return new Double(t.nval).intValue();
-				else
-					System.out.println(m);
+				int r;
+				if (token.nextToken() == token.TT_NUMBER) {
+					r = new Double(token.nval).intValue();
+					return r;
+				} else {
+					System.out.println(message);
+				}
 			} catch (IOException e) {
-				System.out.println(m);
+				System.out.println(message);
 			}
 		}
 	}
 	public static String readLine() {
-		InputStreamReader r = new InputStreamReader(System.in);
-		BufferedReader b = new BufferedReader(r);
+		InputStreamReader reader = new InputStreamReader(System.in);
+		BufferedReader buffer = new BufferedReader(reader);
 		while (true) {
 			printPrompt();
 			try {
-				return b.readLine();
+				return buffer.readLine();
 			} catch (IOException e) {
 				System.out.println("\nInvalid: try again");
 			}
@@ -47,8 +50,8 @@ public class InventoryApplication {
 			printMainMenu();
 			switch (readInt()) {
 			case 1:
-				if (!done1 && loadRecordsIntoArray())
-					done1 = true;
+				if (!done1)
+					done1 = loadRecordsIntoArray();
 				else
 					System.out.println(
 						"\nData already loaded."
@@ -84,56 +87,49 @@ public class InventoryApplication {
 		System.out.print("\n> ");
 	}
 	private static boolean loadRecordsIntoArray() {
-		String n;
-		String l;
-		FileInputStream s = null;
-		InputStreamReader r;
-		BufferedReader b;
-		boolean bad = false;
-		long t = 0, i = 0;
+		String filename;
+		FileInputStream stream = null;
+		long time = 0, good = 0, total = 0;
 		System.out.println("\nEnter file name:");
-		n = readLine();
+		filename = readLine();
 		System.out.println("");
 		try {
-			s = new FileInputStream(n);
-			r = new InputStreamReader(s);
-			b = new BufferedReader(r);
-			t = System.nanoTime();
-			while ((l = b.readLine()) != null) {
-				boolean success = B.addWarehouseItemByLine(l);
-				if (success) {
+			String line;
+			InputStreamReader reader;
+			BufferedReader buffer;
+			stream = new FileInputStream(filename);
+			reader = new InputStreamReader(stream);
+			buffer = new BufferedReader(reader);
+			time = System.nanoTime();
+			while ((line = buffer.readLine()) != null) {
+				total++;
+				if (backend.addWarehouseItemByLine(line)) {
 					System.out.print(
-						"\rLoading... " + (++i)
+						"\rLoading... " + (++good)
 					);
-				} else {
-					bad = true;
 				}
 			}
-			t = System.nanoTime() - t;
-			s.close();
+			time = System.nanoTime() - time;
+			stream.close();
 		} catch (IOException e) {
-			if (s != null) {
+			if (stream != null) {
 				try {
-					s.close();
+					stream.close();
 				} catch (IOException z) {
 					// Tough luck!
 				}
 			}
 			System.out.println("\nFile error: " + e.getMessage());
 		}
-		if (i == 0) {
+		if (good == 0) {
 			System.out.println("Failure: no records loaded.");
 			return false;
 		} else {
 			System.out.println(
 				"\nSuccess: " +
-				(double) t / 1000000 +
+				(double) time / 1000000 +
 				" milliseconds"
 			);
-			if (bad)
-				System.out.println(
-					"Some records failed to load."
-				);
 			return true;
 		}
 	}
