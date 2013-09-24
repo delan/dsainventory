@@ -46,7 +46,7 @@ public class DSABinarySearchTree<
 		child = new TreeNode<K,V>(key, value);
 		if (parent == null)
 			root = child;
-		else if (key.compareTo(cur.key) < 0)
+		else if (key.compareTo(parent.key) < 0)
 			parent.left = child;
 		else
 			parent.right = child;
