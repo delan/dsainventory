@@ -97,7 +97,7 @@ public class DSABinarySearchTree<
 			succParent = successor;
 			successor = successor.left;
 		}
-		deleteChineseNode(successor, parent);
+		deleteChineseNode(successor, succParent);
 		cur.key = successor.key;
 		cur.value = successor.value;
 	}
