@@ -17,6 +17,9 @@ public class DSABinarySearchTree<
 			this.value = value;
 			left = right = null;
 		}
+		public String toString() {
+			return "[" + this.key + " = " + this.value + "]";
+		}
 	}
 	private TreeNode<K,V> root;
 	public V find(K key) {
@@ -114,19 +117,49 @@ public class DSABinarySearchTree<
 				return rightHeight;
 		}
 	}
+	public String toString() {
+		return toString(root, 0, 0);
+	}
+	public String toString(TreeNode<K,V> start, int indent, int dir) {
+		String r = "";
+		if (start != null && start.left != null)
+			r += toString(start.left, indent + 1, -1);
+		for (int i = 0; i < indent; i++) {
+			for (int j = 0; j < 4; j++)
+				if (j == 0 && i == indent - 1)
+					r +=	dir < 0 ? "/" :
+						dir > 0 ? "\\" : "";
+				else if (i == indent - 1)
+					r += "-";
+				else
+					r += " ";
+		}
+		if (start != null)
+			r += start + "\n";
+		else
+			r += "(null)\n";
+		if (start != null && start.right != null)
+			r += toString(start.right, indent + 1, 1);
+		return r;
+	}
 	public static void main(String[] args) {
 		DSABinarySearchTree<String, String> t =
 			new DSABinarySearchTree<String, String>();
 		t.insert("delan@azabani.com", "Delan Azabani");
-		t.insert("me@kyerussell.com", "Kye Russell");
+		t.insert("dave.cooper@iinet.net.au", "David Cooper");
 		t.insert("rms@gnu.org", "Richard Stallman");
-		System.out.println(t.find("me@kyerussell.com"));
+		t.insert("me@kyerussell.com", "Kye Russell");
+		t.insert("torvalds@linux-foundation.org", "Linus Torvalds");
+		System.out.print(t);
+		t.delete("delan@azabani.com");
+		System.out.print(t);
+		System.out.println(t.find("dave.cooper@iinet.net.au"));
 		System.out.println(t.find("rms@gnu.org"));
-		System.out.println(t.find("delan@azabani.com"));
+		System.out.println(t.find("me@kyerussell.com"));
 		try {
-			System.out.println(t.find("nobody@example.net"));
+			System.out.println(t.find("delan@azabani.com"));
 		} catch (NoSuchElementException e) {
-			System.out.println("nobody@example.net not found");
+			System.out.println("delan@azabani.com not found");
 		}
 	}
 }
