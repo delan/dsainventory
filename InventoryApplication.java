@@ -76,7 +76,7 @@ public class InventoryApplication {
 	}
 	private static void printMainMenu() {
 		System.out.println("");
-		System.out.println("(1) Load records from array");
+		System.out.println("(1) Load records into array");
 		System.out.println("(2) Build binary search tree from array");
 		System.out.println("(3) Search array");
 		System.out.println("(4) Search tree");
