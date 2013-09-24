@@ -18,7 +18,7 @@ public class DSABinarySearchTree<K extends Comparable<K>, V> {
 			return value;
 		}
 		public String toString() {
-			return "[" + this.key + " = " + this.value + "]";
+			return "[" + this.key + "]";
 		}
 	}
 	private TreeNode<K,V> root;
