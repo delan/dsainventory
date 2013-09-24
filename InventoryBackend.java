@@ -1,11 +1,11 @@
 import java.io.*;
 import java.util.*;
 
-public class InventoryApplicationBackend {
+public class InventoryBackend {
 	private static int MAX_ARRAY = 1000000;
 	private WarehouseItem[] array;
 	private int arrayUsed;
-	public InventoryApplicationBackend() {
+	public InventoryBackend() {
 		array = new WarehouseItem[MAX_ARRAY];
 		arrayUsed = 0;
 	}

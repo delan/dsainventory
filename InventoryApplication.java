@@ -2,9 +2,9 @@ import java.io.*;
 import java.util.*;
 
 public class InventoryApplication {
-	public static InventoryApplicationBackend backend;
+	public static InventoryBackend backend;
 	public static void main(String[] args) {
-		backend = new InventoryApplicationBackend();
+		backend = new InventoryBackend();
 		System.out.println("________________________________________");
 		System.out.println("");
 		System.out.println("   Data Structures and Algorithms 120");
