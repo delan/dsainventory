@@ -47,14 +47,12 @@ public class InventoryApplication {
 			printMainMenu();
 			switch (readInt()) {
 			case 1:
-				if (!done1) {
-					loadRecordsIntoArray();
+				if (!done1 && loadRecordsIntoArray())
 					done1 = true;
-				} else {
+				else
 					System.out.println(
 						"\nData already loaded."
 					);
-				}
 				break;
 			case 2:
 				break;
@@ -85,7 +83,7 @@ public class InventoryApplication {
 	private static void printPrompt() {
 		System.out.print("\n> ");
 	}
-	private static void loadRecordsIntoArray() {
+	private static boolean loadRecordsIntoArray() {
 		String n;
 		String l;
 		FileInputStream s = null;
@@ -101,7 +99,6 @@ public class InventoryApplication {
 			r = new InputStreamReader(s);
 			b = new BufferedReader(r);
 			t = System.nanoTime();
-			System.out.print("Loading... 0");
 			while ((l = b.readLine()) != null) {
 				boolean success = B.addWarehouseItemByLine(l);
 				if (success) {
@@ -124,12 +121,20 @@ public class InventoryApplication {
 			}
 			System.out.println("\nFile error: " + e.getMessage());
 		}
-		System.out.println(
-			"\nDone: " +
-			(double) t / 1000000 +
-			" milliseconds"
-		);
-		if (bad)
-			System.out.println("Some records failed to load.");
+		if (i == 0) {
+			System.out.println("Failure: no records loaded.");
+			return false;
+		} else {
+			System.out.println(
+				"\nSuccess: " +
+				(double) t / 1000000 +
+				" milliseconds"
+			);
+			if (bad)
+				System.out.println(
+					"Some records failed to load."
+				);
+			return true;
+		}
 	}
 }
