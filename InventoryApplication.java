@@ -29,6 +29,18 @@ public class InventoryApplication {
 			}
 		}
 	}
+	public static String readLine() {
+		InputStreamReader r = new InputStreamReader(System.in);
+		BufferedReader b = new BufferedReader(r);
+		while (true) {
+			printPrompt();
+			try {
+				return b.readLine();
+			} catch (IOException e) {
+				System.out.println("Invalid: try again");
+			}
+		}
+	}
 	private static void runMainMenu() {
 		printMainMenu();
 		while (true) {
