@@ -2,9 +2,9 @@ import java.io.*;
 import java.util.*;
 
 public class InventoryApplication {
-	public static InventoryApplicationBackend b;
+	public static InventoryApplicationBackend B;
 	public static void main(String[] args) {
-		b = new InventoryApplicationBackend();
+		B = new InventoryApplicationBackend();
 		System.out.println("________________________________________");
 		System.out.println("");
 		System.out.println("   Data Structures and Algorithms 120");
@@ -16,7 +16,7 @@ public class InventoryApplication {
 	public static int readInt() {
 		InputStreamReader r = new InputStreamReader(System.in);
 		StreamTokenizer t = new StreamTokenizer(r);
-		String m = "Invalid: not an integer";
+		String m = "\nInvalid: not an integer";
 		while (true) {
 			printPrompt();
 			try {
@@ -37,15 +37,24 @@ public class InventoryApplication {
 			try {
 				return b.readLine();
 			} catch (IOException e) {
-				System.out.println("Invalid: try again");
+				System.out.println("\nInvalid: try again");
 			}
 		}
 	}
 	private static void runMainMenu() {
-		printMainMenu();
+		boolean done1 = false;
 		while (true) {
+			printMainMenu();
 			switch (readInt()) {
 			case 1:
+				if (!done1) {
+					loadRecordsIntoArray();
+					done1 = true;
+				} else {
+					System.out.println(
+						"\nData already loaded."
+					);
+				}
 				break;
 			case 2:
 				break;
@@ -59,7 +68,7 @@ public class InventoryApplication {
 				System.exit(0);
 				break;
 			default:
-				System.out.println("Invalid: not in menu");
+				System.out.println("\nInvalid: not in menu");
 				break;
 			}
 		}
@@ -75,5 +84,46 @@ public class InventoryApplication {
 	}
 	private static void printPrompt() {
 		System.out.print("\n> ");
+	}
+	private static void loadRecordsIntoArray() {
+		String n;
+		String l;
+		FileInputStream s = null;
+		InputStreamReader r;
+		BufferedReader b;
+		boolean bad = false;
+		int i = 0;
+		System.out.println("");
+		System.out.println("Enter file name:");
+		n = readLine();
+		System.out.println("");
+		try {
+			s = new FileInputStream(n);
+			r = new InputStreamReader(s);
+			b = new BufferedReader(r);
+			while ((l = b.readLine()) != null) {
+				boolean success = B.addWarehouseItemByLine(l);
+				if (success) {
+					System.out.print(
+						"\rLoading... " + (++i)
+					);
+				} else {
+					bad = true;
+				}
+			}
+			s.close();
+		} catch (IOException e) {
+			if (s != null) {
+				try {
+					s.close();
+				} catch (IOException z) {
+					// Tough luck!
+				}
+			}
+			System.out.println("\nFile error: " + e.getMessage());
+		}
+		System.out.println("");
+		if (bad)
+			System.out.println("Some records failed to load.");
 	}
 }
