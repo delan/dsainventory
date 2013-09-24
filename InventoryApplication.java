@@ -92,7 +92,7 @@ public class InventoryApplication {
 		InputStreamReader r;
 		BufferedReader b;
 		boolean bad = false;
-		int i = 0;
+		long t = 0, i = 0;
 		System.out.println("\nEnter file name:");
 		n = readLine();
 		System.out.println("");
@@ -100,6 +100,8 @@ public class InventoryApplication {
 			s = new FileInputStream(n);
 			r = new InputStreamReader(s);
 			b = new BufferedReader(r);
+			t = System.nanoTime();
+			System.out.print("Loading... 0");
 			while ((l = b.readLine()) != null) {
 				boolean success = B.addWarehouseItemByLine(l);
 				if (success) {
@@ -110,6 +112,7 @@ public class InventoryApplication {
 					bad = true;
 				}
 			}
+			t = System.nanoTime() - t;
 			s.close();
 		} catch (IOException e) {
 			if (s != null) {
@@ -121,7 +124,11 @@ public class InventoryApplication {
 			}
 			System.out.println("\nFile error: " + e.getMessage());
 		}
-		System.out.println("");
+		System.out.println(
+			"\nDone: " +
+			(double) t / 1000000 +
+			" milliseconds"
+		);
 		if (bad)
 			System.out.println("Some records failed to load.");
 	}
