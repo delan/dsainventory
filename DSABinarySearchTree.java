@@ -1,13 +1,7 @@
 import java.util.*;
 
-public class DSABinarySearchTree<
-	K extends Comparable<K>,
-	V extends Comparable<V>
-> {
-	private class TreeNode<
-		K extends Comparable<K>,
-		V extends Comparable<V>
-	> {
+public class DSABinarySearchTree<K extends Comparable<K>, V> {
+	private class TreeNode<K extends Comparable<K>, V> {
 		private K key;
 		private V value;
 		private TreeNode<K,V> left;
@@ -16,6 +10,12 @@ public class DSABinarySearchTree<
 			this.key = key;
 			this.value = value;
 			left = right = null;
+		}
+		public K getKey() {
+			return key;
+		}
+		public V getValue() {
+			return value;
 		}
 		public String toString() {
 			return "[" + this.key + " = " + this.value + "]";

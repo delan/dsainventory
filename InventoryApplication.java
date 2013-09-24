@@ -45,7 +45,8 @@ public class InventoryApplication {
 		}
 	}
 	private static void runMainMenu() {
-		boolean done1 = false;
+		boolean	done1 = false,
+			done2 = false;
 		while (true) {
 			printMainMenu();
 			switch (readInt()) {
@@ -58,6 +59,12 @@ public class InventoryApplication {
 					);
 				break;
 			case 2:
+				if (done1)
+					done2 = backend.rebuildTree();
+				else
+					System.out.println(
+						"\nLoad the array first!"
+					);
 				break;
 			case 3:
 				break;

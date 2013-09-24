@@ -4,6 +4,7 @@ import java.util.*;
 public class InventoryBackend {
 	private static int MAX_ARRAY = 1000000;
 	private WarehouseItem[] array;
+	private DSABinarySearchTree<String, WarehouseItem> bst;
 	private int arrayUsed;
 	public InventoryBackend() {
 		array = new WarehouseItem[MAX_ARRAY];
@@ -23,6 +24,34 @@ public class InventoryBackend {
 			return true;
 		} catch (Exception e) {
 			return false;
+		}
+	}
+	public boolean rebuildTree() {
+		long time, good = 0, total = 0;
+		bst = new DSABinarySearchTree<String, WarehouseItem>();
+		time = System.nanoTime();
+		for (int i = 0; i < arrayUsed; i++) {
+			total++;
+			try {
+				bst.insert(array[i].getKey(), array[i]);
+				System.out.print(
+					"\rLoading... " + (++good)
+				);
+			} catch (Exception e) {
+				// Tough luck!
+			}
+		}
+		time = System.nanoTime() - time;
+		if (good == 0) {
+			System.out.println("Failure: no records loaded.");
+			return false;
+		} else {
+			System.out.println(
+				"\nSuccess: " +
+				(double) time / 1000000 +
+				" milliseconds"
+			);
+			return true;
 		}
 	}
 }
