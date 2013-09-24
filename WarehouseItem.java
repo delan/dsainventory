@@ -49,12 +49,18 @@ public class WarehouseItem {
 		this.price = Math.round(price * 100) / 100;
 	}
 	public String toString() {
-		return
-			"Key:    " + key + "\n" +
-			"Brand:  " + brand + "\n" +
-			"Model:  " + model + "\n" +
-			"Weight: " + weightInKg + " kg\n" +
-			"Price   $" + String.format("%.2f", price);
+		return toString(false);
+	}
+	public String toString(boolean verbose) {
+		if (verbose)
+			return
+				"Key:    " + key + "\n" +
+				"Brand:  " + brand + "\n" +
+				"Model:  " + model + "\n" +
+				"Weight: " + weightInKg + " kg\n" +
+				"Price   $" + String.format("%.2f", price);
+		else
+			return key;
 	}
 	public static void main(String[] args) {
 		WarehouseItem w = new WarehouseItem(
