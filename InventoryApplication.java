@@ -93,8 +93,7 @@ public class InventoryApplication {
 		BufferedReader b;
 		boolean bad = false;
 		int i = 0;
-		System.out.println("");
-		System.out.println("Enter file name:");
+		System.out.println("\nEnter file name:");
 		n = readLine();
 		System.out.println("");
 		try {
