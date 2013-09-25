@@ -41,9 +41,10 @@ public class InventoryBackend {
 			total++;
 			try {
 				bst.insert(array[i].getKey(), array[i]);
-				System.out.print(
-					"\rLoading... " + (++good)
-				);
+				if (++good % 100 == 0)
+					System.out.print(
+						"\rLoading... " + good
+					);
 			} catch (Exception e) {
 				// Tough luck!
 			}

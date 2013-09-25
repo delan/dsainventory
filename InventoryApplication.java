@@ -129,9 +129,10 @@ public class InventoryApplication {
 			while ((line = buffer.readLine()) != null) {
 				total++;
 				if (backend.addWarehouseItemByLine(line)) {
-					System.out.print(
-						"\rLoading... " + (++good)
-					);
+					if (++good % 100 == 0)
+						System.out.print(
+							"\rLoading... " + good
+						);
 				}
 			}
 			time = System.nanoTime() - time;
