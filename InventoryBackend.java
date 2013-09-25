@@ -30,6 +30,7 @@ public class InventoryBackend {
 		long time, good = 0, total = 0;
 		bst = new DSABinarySearchTree<String, WarehouseItem>();
 		time = System.nanoTime();
+		System.out.println("");
 		for (int i = 0; i < arrayUsed; i++) {
 			total++;
 			try {
