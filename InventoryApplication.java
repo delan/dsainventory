@@ -67,6 +67,12 @@ public class InventoryApplication {
 					);
 				break;
 			case 3:
+				if (done1)
+					searchArray();
+				else
+					System.out.println(
+						"\nLoad the array first!"
+					);
 				break;
 			case 4:
 				break;
@@ -139,5 +145,30 @@ public class InventoryApplication {
 			);
 			return true;
 		}
+	}
+	private static boolean searchArray() {
+		String key;
+		WarehouseItem i;
+		boolean good;
+		long time = 0;
+		System.out.println("\nEnter key:");
+		key = readLine();
+		System.out.println("");
+		time = System.nanoTime();
+		i = backend.searchArray(key);
+		time = System.nanoTime() - time;
+		if (i != null) {
+			System.out.println(i.toString(true));
+			good = true;
+		} else {
+			System.out.println("Failure: no item found with key.");
+			good = false;
+		}
+		System.out.println(
+			"\nTime elapsed: " +
+			(double) time / 1000000 +
+			" milliseconds"
+		);
+		return good;
 	}
 }

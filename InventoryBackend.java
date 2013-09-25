@@ -55,4 +55,10 @@ public class InventoryBackend {
 			return true;
 		}
 	}
+	public WarehouseItem searchArray(String key) {
+		for (int i = 0; i < arrayUsed; i++)
+			if (key.equals(array[i].getKey()))
+				return array[i];
+		return null;
+	}
 }
