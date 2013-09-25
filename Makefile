@@ -12,4 +12,5 @@ clean:
 
 submission: clean
 	mkdir -pv submission
-	tar cvzf submission/submission.tar.gz * .git* --exclude=submission
+	tar cvzf submission/submission.tar.gz * .git* \
+		--exclude=submission --exclude='*.csv'
