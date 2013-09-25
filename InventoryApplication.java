@@ -83,6 +83,12 @@ public class InventoryApplication {
 					);
 				break;
 			case 5:
+				if (done1)
+					saveDataToFile();
+				else
+					System.out.println(
+						"\nLoad the array first!"
+					);
 				break;
 			case 0:
 				System.exit(0);
@@ -201,5 +207,59 @@ public class InventoryApplication {
 			" milliseconds"
 		);
 		return good;
+	}
+	private static boolean saveDataToFile() {
+		String filename;
+		FileOutputStream stream = null;
+		long time = 0, good = 0;
+		System.out.println("\nEnter file name:");
+		filename = readLine();
+		System.out.println("");
+		time = System.nanoTime();
+		System.out.println("Sorting...");
+		backend.sortArray();
+		try {
+			PrintWriter writer;
+			WarehouseItem[] array = backend.getArray();
+			int arrayUsed = backend.getArrayUsed();
+			stream = new FileOutputStream(filename);
+			writer = new PrintWriter(stream);
+			for (int i = 0; i < arrayUsed; i++) {
+				writer.println(
+					array[i].getKey() + "," +
+					array[i].getBrand() + "," +
+					array[i].getModel() + "," +
+					array[i].getWeightInKg() + "," +
+					array[i].getPrice()
+				);
+				if (++good % 100 == 0)
+					System.out.print(
+						"\rWriting... " + good
+					);
+			}
+			time = System.nanoTime() - time;
+			writer.flush();
+			stream.close();
+		} catch (IOException e) {
+			if (stream != null) {
+				try {
+					stream.close();
+				} catch (IOException z) {
+					// Tough luck!
+				}
+			}
+			System.out.println("\nFile error: " + e.getMessage());
+		}
+		if (good == 0) {
+			System.out.println("Failure: no records written.");
+			return false;
+		} else {
+			System.out.println(
+				"\nSuccess: " +
+				(double) time / 1000000 +
+				" milliseconds"
+			);
+			return true;
+		}
 	}
 }
