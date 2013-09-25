@@ -75,6 +75,12 @@ public class InventoryApplication {
 					);
 				break;
 			case 4:
+				if (done2)
+					searchTree();
+				else
+					System.out.println(
+						"\nBuild the tree first!"
+					);
 				break;
 			case 5:
 				break;
@@ -156,6 +162,31 @@ public class InventoryApplication {
 		System.out.println("");
 		time = System.nanoTime();
 		i = backend.searchArray(key);
+		time = System.nanoTime() - time;
+		if (i != null) {
+			System.out.println(i.toString(true));
+			good = true;
+		} else {
+			System.out.println("Failure: no item found with key.");
+			good = false;
+		}
+		System.out.println(
+			"\nTime elapsed: " +
+			(double) time / 1000000 +
+			" milliseconds"
+		);
+		return good;
+	}
+	private static boolean searchTree() {
+		String key;
+		WarehouseItem i;
+		boolean good;
+		long time = 0;
+		System.out.println("\nEnter key:");
+		key = readLine();
+		System.out.println("");
+		time = System.nanoTime();
+		i = backend.searchTree(key);
 		time = System.nanoTime() - time;
 		if (i != null) {
 			System.out.println(i.toString(true));

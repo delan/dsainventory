@@ -61,4 +61,11 @@ public class InventoryBackend {
 				return array[i];
 		return null;
 	}
+	public WarehouseItem searchTree(String key) {
+		try {
+			return bst.find(key);
+		} catch (NoSuchElementException e) {
+			return null;
+		}
+	}
 }
