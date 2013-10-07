@@ -8,7 +8,7 @@ run: compile
 	java InventoryApplication
 
 clean:
-	rm -rfv *.class submission
+	rm -rfv *.class submission */*.aux */*.log */*.synctex.gz */*.out
 
 submission: clean
 	mkdir -pv submission
