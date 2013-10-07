@@ -8,9 +8,13 @@ run: compile
 	java InventoryApplication
 
 clean:
-	rm -rfv *.class submission */*.aux */*.log */*.synctex.gz */*.out
+	rm -rfv *.class submission \
+		*/*.pdf */*.aux */*.log */*.synctex.gz */*.out
 
-submission: clean
+submission: clean report
 	mkdir -pv submission
+	cd report && pdflatex report.tex
 	tar cvzf submission/submission.tar.gz * .git* \
-		--exclude=submission --exclude='*.csv'
+		--exclude=submission --exclude='*.csv' \
+		--exclude='*.aux' --exclude='*.log' \
+		--exclude='*.out' --exclude='*.synctex.gz'
