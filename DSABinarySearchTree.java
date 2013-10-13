@@ -68,7 +68,7 @@ public class DSABinarySearchTree<K extends Comparable<K>, V> {
 		else if (cur.left == null || cur.right == null)
 			deleteChineseNode(cur, parent);
 		else
-			deleteKurdishNode(cur, parent);
+			deleteKurdishNode(cur);
 	}
 	public void deleteChineseNode(
 		TreeNode<K,V> cur,
@@ -86,13 +86,10 @@ public class DSABinarySearchTree<K extends Comparable<K>, V> {
 		else
 			parent.right = promoted;
 	}
-	public void deleteKurdishNode(
-		TreeNode<K,V> cur,
-		TreeNode<K,V> parent
-	) {
+	public void deleteKurdishNode(TreeNode<K,V> cur) {
 		TreeNode<K,V> successor, succParent;
 		successor = cur.right;
-		succParent = parent;
+		succParent = cur;
 		while (successor.left != null) {
 			succParent = successor;
 			successor = successor.left;
