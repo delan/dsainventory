@@ -11,9 +11,11 @@ clean:
 	rm -rfv *.class submission \
 		*/*.pdf */*.aux */*.log */*.synctex.gz */*.out
 
-submission: clean report
-	mkdir -pv submission
+genreport:
 	cd report && pdflatex report.tex
+
+submission: clean genreport
+	mkdir -pv submission
 	tar cvzf submission/submission.tar.gz * .git* \
 		--exclude=submission --exclude='*.csv' \
 		--exclude='*.aux' --exclude='*.log' \
