@@ -139,24 +139,4 @@ public class DSABinarySearchTree<K extends Comparable<K>, V> {
 			r += toString(start.right, indent + 1, 1);
 		return r;
 	}
-	public static void main(String[] args) {
-		DSABinarySearchTree<String, String> t =
-			new DSABinarySearchTree<String, String>();
-		t.insert("delan@azabani.com", "Delan Azabani");
-		t.insert("dave.cooper@iinet.net.au", "David Cooper");
-		t.insert("rms@gnu.org", "Richard Stallman");
-		t.insert("me@kyerussell.com", "Kye Russell");
-		t.insert("torvalds@linux-foundation.org", "Linus Torvalds");
-		System.out.print(t);
-		t.delete("delan@azabani.com");
-		System.out.print(t);
-		System.out.println(t.find("dave.cooper@iinet.net.au"));
-		System.out.println(t.find("rms@gnu.org"));
-		System.out.println(t.find("me@kyerussell.com"));
-		try {
-			System.out.println(t.find("delan@azabani.com"));
-		} catch (NoSuchElementException e) {
-			System.out.println("delan@azabani.com not found");
-		}
-	}
 }
